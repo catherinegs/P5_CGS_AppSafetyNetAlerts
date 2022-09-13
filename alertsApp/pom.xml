@@ -8,10 +8,10 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.safetyNet</groupId>
-	<artifactId>alertsApp</artifactId>
+	<groupId>com.safetynet</groupId>
+	<artifactId>alertsapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>alertsApp</name>
+	<name>alertsapp</name>
 	<description>App project for Spring Boot</description>
 	<properties>
 		<java.version>18</java.version>
