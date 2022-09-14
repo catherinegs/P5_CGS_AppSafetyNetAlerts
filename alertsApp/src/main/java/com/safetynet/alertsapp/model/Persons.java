@@ -1,12 +1,19 @@
 package com.safetynet.alertsapp.model;
 
+import lombok.Data;
+
+@Data
 public class Persons {
 	
-	int id;
-	String firstName;
-	String lastName;
-	String email;
-	String phone;
+	
+	private int id;
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String phone;
+    private Address address;
+    private MedicalRecords medicalRecords;
+    
 	
 
 }
