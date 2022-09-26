@@ -1,9 +1,12 @@
 package com.safetynet.alertsapp.model;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Persons {
 	
 	private int id;
@@ -14,13 +17,6 @@ public class Persons {
     private Address address;
     private MedicalRecords medicalRecords;
     
-    
-	@Override
-	public String toString() {
-		return "Persons [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", phone=" + phone + ", address=" + address + ", medicalRecords=" + medicalRecords + "]";
-	}
-    
-	
+    		
 
 }
