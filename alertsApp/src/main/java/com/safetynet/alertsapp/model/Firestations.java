@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 
 public class Firestations {
 	
-	private int station;
+	private String station;
 	private Address address;
 	
 	

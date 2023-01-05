@@ -21,7 +21,7 @@ public class Persons {
 	private String lastName;
 	private String email;
 	private String phone;
-	
+	private String birthdate;
     private Address address;
     private MedicalRecords medicalRecords;
     

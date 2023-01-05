@@ -63,7 +63,6 @@ public class ReadDataJson {
         
           for (Map<String, String> medicalRecord :  medicalRecords ){
            MedicalRecords medRec1 = new MedicalRecords();
-           medRec1.setBirthdate(Date(medicalRecord.get("birthday")));
        
           List<String> medications = new ArrayList<>();
          //medications.setMedications(medicalRecord.get("medications"));
@@ -87,9 +86,14 @@ public class ReadDataJson {
         
         for (Map<String, String> fireStation :  fireStations ){
         	
-        	Firestations fireStation1 = new Firestations();
+        	Firestations fireStation1 = new Firestations(); 
+        	Address address1 = new Address();
         	
-        	//fireStation1.setStation(fireStation.get("fireStation"));
+        	fireStation1.setStation(fireStation.get("station"));
+          	address1.setAddress(fireStation.get("address"));
+          	fireStation1.setAddress(address1);
+
+
         	
         	
         }

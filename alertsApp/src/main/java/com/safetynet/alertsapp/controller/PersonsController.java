@@ -1,13 +1,17 @@
 package com.safetynet.alertsapp.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.safetynet.alertsapp.model.Persons;
 import com.safetynet.alertsapp.service.PersonsService;
@@ -20,17 +24,36 @@ public class PersonsController {
 	@Autowired
 	private PersonsService service;
 	
-	@PostMapping("/add")
-	public Persons addPersons(@RequestBody Persons person)  {
-		
-		return service.savePersons(person);
+	
+	
+	public PersonsController(PersonsService service) {
+		this.service = service;
 	}
 	
-	@GetMapping("/test")
-	public List<Persons>  getPersons()  {
+	
+	@PostMapping(value = "/Persons")
+	public ResponseEntity<Void> addPersons(@RequestBody Persons person)  {
+		Persons persAdded = service.savePersons(person);
+		
+	    if (persAdded == null)
+		      return ResponseEntity.noContent().build();
+
+		    URI location = ServletUriComponentsBuilder
+		          .fromCurrentRequest()
+		          .path("/{persons}")
+		          .buildAndExpand(persAdded.getFirstName())
+		          .toUri();
+		
+		return ResponseEntity.created(location).build(); 
+	}
+	
+	@GetMapping("/Persons")
+	public Iterable<Persons>  getPersons()  {
 		
 		return service.getPersons();
 	}
+	
+
 
 	
 

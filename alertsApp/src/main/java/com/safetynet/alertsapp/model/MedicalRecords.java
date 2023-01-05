@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 
 public class MedicalRecords {
 	
-	private Date birthdate;
 	private List<String> medications;
 	private List<String> allergies;
 	

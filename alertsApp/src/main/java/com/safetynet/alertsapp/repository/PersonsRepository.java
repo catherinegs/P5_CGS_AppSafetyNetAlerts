@@ -41,43 +41,29 @@ public class PersonsRepository {
 	//create ObjectMapper instance
     ObjectMapper objectMapper = new ObjectMapper();
 
-	public List<Persons> list = new ArrayList<Persons>();
+	public List<Persons> persons = new ArrayList<>();
 	
 	public PersonsRepository() throws StreamReadException, DatabindException, IOException {
-		
-		
+				
 		ReadDataJson.readPersonsFromFile();
-
 	}
 	
-	public static Persons getPerson() {
-		
-		Persons person = new Persons();
-	    person.getFirstName();
-	    person.getLastName();
-		
-		
-		
-		return person;
-	}
-
-
 
 	public List<Persons> getAllPersons() {
+ 		
+        return persons;
+    }
+	
+	public Persons findByBirthdate(String birthdate) {
 		
-		Persons person = new Persons();
-	    person.getFirstName();
-	    person.getLastName();
+        for (Persons person : persons) {
+            if (person.getBirthdate() == (birthdate)) {
+                return person;
+            }
+        }
+		return null;
+	}
 
-			list.add(person);
-		    
-		
-
-        //Creating an ArrayList
- 
-		
-        return list;
-}
 
 	public void createPersons(Persons p) throws StreamWriteException, DatabindException, IOException {
 	
@@ -95,37 +81,31 @@ public class PersonsRepository {
     address.setZip("66525");
     person.setAddress(address);
 
-    MedicalRecords medRec = new MedicalRecords();
-
-    
+    MedicalRecords medRec = new MedicalRecords();    
     List<String> medications = new ArrayList<>();
     medications.add("PayPal");
     medications.add("SOFORT");
     person.setMedicalRecords(medRec);
-
     List<String> allergies = new ArrayList<>();
     allergies.add("gender");
     allergies.add("married");
     allergies.add("income");
     person.setMedicalRecords(medRec);
-
+    
     //configure objectMapper for pretty input
     objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-
     //write customerObj object to customer2.json file
-    objectMapper.writeValue(new File("../../resources/data2.json"), person);
-	
+    objectMapper.writeValue(new File("../../resources/data2.json"), person);	
 	
 	}
 		  
-
     public Persons save(Persons p) {
     	Persons person = new Persons();
     	person.setFirstName(p.getFirstName());
     	person.setLastName(p.getLastName());
     	person.setEmail(p.getEmail());
     	person.setPhone(p.getPhone());
-    	list.add(person);
+    	persons.add(person);
         return person;
     }
     
@@ -134,10 +114,23 @@ public class PersonsRepository {
         address.setAddress(addr.getAddress());      
         address.setCity(addr.getCity());
         address.setZip(addr.getZip());   	
-    	return address;
+    	return address;    	
+    }
+    
+    public MedicalRecords save(MedicalRecords medrec) {
+    	
+        MedicalRecords medRec = new MedicalRecords();  
+        List<String> medications = new ArrayList<>();
+   
+        return medRec;
+    	
     	
     }
 
+
+
+    
+    
 
 	
 	

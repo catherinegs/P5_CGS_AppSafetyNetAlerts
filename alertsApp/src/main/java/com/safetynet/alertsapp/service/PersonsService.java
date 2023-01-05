@@ -14,15 +14,23 @@ public class PersonsService {
 	
 
 	    @Autowired
-	    private PersonsRepository repository;
+	    private PersonsRepository personRepository;
+	    
+
+	   public List<Persons> getPerson(String birthdate) {
+	        return (List<Persons>) personRepository.findByBirthdate(birthdate);
+	    }
 
 	    public Persons savePersons(Persons person) {
-	        return repository.save(person);
+	    	Persons savedPerson = personRepository.save(person);
+	        return savedPerson;
 	    }
 
-	    public List<Persons> getPersons() {
-	        return repository.getAllPersons();
+	    public Iterable<Persons> getPersons() {
+	        return personRepository.getAllPersons();
 	    }
+	    
+
 	}   
 
 
