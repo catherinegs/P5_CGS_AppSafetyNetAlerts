@@ -3,6 +3,7 @@ package com.safetynet.alertsapp.repository;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,32 +37,34 @@ public class ReadDataJson {
 	}
 	
 	public static void readPersonsFromFile () throws StreamReadException, DatabindException, IOException {
-        Map<String, List <Map<String, String>>> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
-        List<Map<String, String>> persons = resultMap.get("persons");
+        Map<String, Map<String, String>> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
+        Map<String, String> persons = new HashMap<>();
+        persons = resultMap.get("persons");
 
-          for (Map<String, String> person :  persons ){
+          for (String person :  persons.keySet()){
+        	  
         		        	 
         	  
           	Persons person1 = new Persons();
           	Address address1 = new Address();
 
-          	person1.setFirstName(person.get("firstName"));
-          	person1.setLastName(person.get("lastName"));
-          	person1.setPhone(person.get("phone"));
-          	person1.setEmail(person.get("email"));
+          	person1.setFirstName(persons.get("firstName"));
+          	person1.setLastName(persons.get("lastName"));
+          	person1.setPhone(persons.get("phone"));
+          	person1.setEmail(persons.get("email"));
           	
-          	address1.setAddress(person.get("address"));
-        	address1.setZip(person.get("zip"));
-        	address1.setCity(person.get("city"));
+          	address1.setAddress(persons.get("address"));
+        	address1.setZip(persons.get("zip"));
+        	address1.setCity(persons.get("city"));
         	
             person1.setAddress(address1);
             
 
           }
           
-        List<Map<String, String>> medicalRecords = resultMap.get("medicalrecords");
+        Map<String, String> medicalRecords = resultMap.get("medicalrecords");
         
-          for (Map<String, String> medicalRecord :  medicalRecords ){
+          for (String medicalRecord :  medicalRecords.keySet() ){
            MedicalRecords medRec1 = new MedicalRecords();
        
           List<String> medications = new ArrayList<>();
@@ -81,16 +84,17 @@ public class ReadDataJson {
 	}
 
 	public static void readFireStationsFromFile() throws StreamReadException, DatabindException, IOException {
-        Map<String, List <Map<String, String>>> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
-        List<Map<String, String>> fireStations = resultMap.get("firestations");
+        Map<String, Map<String, String>> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
+        Map<String, String> fireStations = new HashMap<>();
+        fireStations =resultMap.get("firestations");
         
-        for (Map<String, String> fireStation :  fireStations ){
+        for (String fireStation :  fireStations.keySet()){
         	
         	Firestations fireStation1 = new Firestations(); 
         	Address address1 = new Address();
         	
-        	fireStation1.setStation(fireStation.get("station"));
-          	address1.setAddress(fireStation.get("address"));
+        	fireStation1.setStation(fireStations.get("station"));
+          	address1.setAddress(fireStations.get("address"));
           	fireStation1.setAddress(address1);
 
 
