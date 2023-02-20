@@ -24,17 +24,17 @@ public class FireStationsRepository {
 	//create ObjectMapper instance
     ObjectMapper objectMapper = new ObjectMapper();
     
-	public List<Firestations> stations = new ArrayList<>();
+	public List<Firestations> fireStations = new ArrayList<>();
 
 	public FireStationsRepository() throws StreamReadException, DatabindException, IOException {
 		
-		    readDataJson.readFireStationsFromFile();
+		    readDataJson.readPersonsFromFile();
 	}
 	
 
 	public List<Firestations> getAllFirestations() {
 		
-        return stations;
+        return fireStations;
 }
 	
 	

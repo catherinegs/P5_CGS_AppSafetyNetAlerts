@@ -27,7 +27,7 @@ public class FireStationsController {
 
 
 	@GetMapping("/testfirestaions")
-	public List<Firestations>  getFireStations()  {
+	public Iterable<Firestations>  getFireStations()  {
 		
 		return service.getFireStations();
 	}

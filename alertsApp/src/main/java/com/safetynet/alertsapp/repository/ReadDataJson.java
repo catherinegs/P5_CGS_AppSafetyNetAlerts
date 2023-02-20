@@ -24,7 +24,7 @@ public class ReadDataJson {
 	//create ObjectMapper instance
     static ObjectMapper objectMapper = new ObjectMapper();
     public void readDataFromFile () throws StreamReadException, DatabindException, IOException {
-        Map<String, Object> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
+        List<Map<String, Object>> resultMap  = (List<Map<String, Object>>) objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
         System.out.println(resultMap);
         
     }    
@@ -37,10 +37,11 @@ public class ReadDataJson {
 	}
 	
 	public static void readPersonsFromFile () throws StreamReadException, DatabindException, IOException {
-        Map<String, Map<String, String>> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
-        Map<String, String> persons = new HashMap<>();
-        persons = resultMap.get("persons");
-
+      Map<String, Map<String, String>> resultMap  =  objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
+     
+        Map<String, String> persons = resultMap.get("persons");
+        
+        		
           for (String person :  persons.keySet()){
         	  
         		        	 
@@ -61,6 +62,7 @@ public class ReadDataJson {
             
 
           }
+
           
         Map<String, String> medicalRecords = resultMap.get("medicalrecords");
         
@@ -74,19 +76,11 @@ public class ReadDataJson {
           
           System.out.println(persons);
                  
-       }
+       
 	
-	
-	
-	private static Date Date(String string) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	public static void readFireStationsFromFile() throws StreamReadException, DatabindException, IOException {
-        Map<String, Map<String, String>> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
-        Map<String, String> fireStations = new HashMap<>();
-        fireStations =resultMap.get("firestations");
+
+        Map<String, String> fireStations = resultMap.get("firestations");
         
         for (String fireStation :  fireStations.keySet()){
         	
@@ -95,22 +89,14 @@ public class ReadDataJson {
         	
         	fireStation1.setStation(fireStations.get("station"));
           	address1.setAddress(fireStations.get("address"));
-          	fireStation1.setAddress(address1);
-
-
-        	
+          	fireStation1.setAddress(address1);        	
         	
         }
-       
         
-
-
+     
+        
 		
 	}
-
-	
-	
-
 
 
 }

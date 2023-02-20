@@ -16,7 +16,7 @@ public class FireStationsService {
     private FireStationsRepository repository;
 
 
-    public List<Firestations> getFireStations() {
+    public Iterable<Firestations> getFireStations() {
         return repository.getAllFirestations();
     }
 
