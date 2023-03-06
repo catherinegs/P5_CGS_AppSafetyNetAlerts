@@ -6,12 +6,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.json.simple.JSONArray;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.core.exc.StreamReadException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alertsapp.model.Address;
 import com.safetynet.alertsapp.model.Firestations;
@@ -23,8 +28,11 @@ public class ReadDataJson {
 	
 	//create ObjectMapper instance
     static ObjectMapper objectMapper = new ObjectMapper();
+    
     public void readDataFromFile () throws StreamReadException, DatabindException, IOException {
-        List<Map<String, Object>> resultMap  = (List<Map<String, Object>>) objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
+       List<Map<String, Object>> resultMap  =  (List<Map<String, Object>>) objectMapper.readValue(new ClassPathResource("data.json").getFile() , List.class);
+        
+
         System.out.println(resultMap);
         
     }    
@@ -32,71 +40,53 @@ public class ReadDataJson {
 	public ReadDataJson() throws StreamReadException, DatabindException, IOException {
 		
 		
-		readPersonsFromFile();
+		readDataFromFile();
 
 	}
 	
 	public static void readPersonsFromFile () throws StreamReadException, DatabindException, IOException {
-      Map<String, Map<String, String>> resultMap  =  objectMapper.readValue(new ClassPathResource("data.json").getFile() , Map.class);
-     
-        Map<String, String> persons = resultMap.get("persons");
-        
-        		
-          for (String person :  persons.keySet()){
-        	  
-        		        	 
-        	  
-          	Persons person1 = new Persons();
-          	Address address1 = new Address();
+        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		Map<String, ?> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , new TypeReference<Map<String, List>>() {});
 
-          	person1.setFirstName(persons.get("firstName"));
-          	person1.setLastName(persons.get("lastName"));
-          	person1.setPhone(persons.get("phone"));
-          	person1.setEmail(persons.get("email"));
-          	
-          	address1.setAddress(persons.get("address"));
-        	address1.setZip(persons.get("zip"));
-        	address1.setCity(persons.get("city"));
+        List<Object>personMap = (List<Object>) resultMap.get("persons");
+                
+ 
+		
+        for (Object person :  personMap){
         	
-            person1.setAddress(address1);
+      	   int i=0;
+      	  
+        	Persons person1 = new Persons();
+        	Address address1 = new Address();
+            person1.setFirstName(personMap.get(i).toString());
             
+            /**
+        	person1.setLastName(personMap.get("lastName"));
+        	person1.setPhone(personMap.get("phone"));
+        	person1.setEmail(personMap.get("email"));
+        	
+        	address1.setAddress(personMap.get("address"));
+      	address1.setZip(personMap.get("zip"));
+      	address1.setCity(personMap.get("city"));
+      	
+          person1.setAddress(address1);
+          **/
 
-          }
-
-          
-        Map<String, String> medicalRecords = resultMap.get("medicalrecords");
         
-          for (String medicalRecord :  medicalRecords.keySet() ){
-           MedicalRecords medRec1 = new MedicalRecords();
-       
-          List<String> medications = new ArrayList<>();
-         //medications.setMedications(medicalRecord.get("medications"));
+
           
-          }
-          
-          System.out.println(persons);
+
+        
+             
+        }
+
+
+
+	}      
                  
        
 	
 
-
-        Map<String, String> fireStations = resultMap.get("firestations");
-        
-        for (String fireStation :  fireStations.keySet()){
-        	
-        	Firestations fireStation1 = new Firestations(); 
-        	Address address1 = new Address();
-        	
-        	fireStation1.setStation(fireStations.get("station"));
-          	address1.setAddress(fireStations.get("address"));
-          	fireStation1.setAddress(address1);        	
-        	
-        }
-        
-     
-        
-		
-	}
 
 
 }

@@ -26,7 +26,7 @@ public class PersonsService {
 	        return savedPerson;
 	    }
 
-	    public Iterable<Persons> getPersons() {
+	    public List<Persons> getPersons() {
 	        return personRepository.getAllPersons();
 	    }
 	    

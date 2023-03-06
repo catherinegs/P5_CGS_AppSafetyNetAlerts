@@ -41,7 +41,7 @@ public class PersonsRepository {
 	//create ObjectMapper instance
     ObjectMapper objectMapper = new ObjectMapper();
 
-	public List<Persons> persons = new ArrayList<>();
+	public ArrayList<Persons> persons = new ArrayList<>();
 	
 	public PersonsRepository() throws StreamReadException, DatabindException, IOException {
 				
@@ -49,7 +49,7 @@ public class PersonsRepository {
 	}
 	
 
-	public List<Persons> getAllPersons() {
+	public ArrayList<Persons> getAllPersons() {
  		
         return persons;
     }

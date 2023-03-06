@@ -31,24 +31,8 @@ public class PersonsController {
 	}
 	
 	
-	@PostMapping(value = "/Persons")
-	public ResponseEntity<Void> addPersons(@RequestBody Persons person)  {
-		Persons persAdded = service.savePersons(person);
-		
-	    if (persAdded == null)
-		      return ResponseEntity.noContent().build();
-
-		    URI location = ServletUriComponentsBuilder
-		          .fromCurrentRequest()
-		          .path("/{persons}")
-		          .buildAndExpand(persAdded.getFirstName())
-		          .toUri();
-		
-		return ResponseEntity.created(location).build(); 
-	}
-	
 	@GetMapping("/Persons")
-	public Iterable<Persons>  getPersons()  {
+	public List<Persons>  getPersons()  {
 		
 		return service.getPersons();
 	}
