@@ -2,6 +2,7 @@ package com.safetynet.alertsapp.repository;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,45 +49,61 @@ public class ReadDataJson {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		Map<String, ?> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , new TypeReference<Map<String, List>>() {});
 
-        List<Object>personMap = (List<Object>) resultMap.get("persons");
-                
- 
-		
-        for (Object person :  personMap){
-        	
-      	   int i=0;
-      	  
+        List<Object>pers = (List<Object>) resultMap.get("persons");
+        
+
+        Map <String, String> personsMap = new HashMap<>();
+   
+	
+       
+      
+      	  for (int i=0; i<=pers.size()-1; i++) {
+      	   
+      	    personsMap = (Map<String, String>) pers.get(i);
+      	    
+            System.out.println(personsMap);
+            
+     	   
         	Persons person1 = new Persons();
         	Address address1 = new Address();
-            person1.setFirstName(personMap.get(i).toString());
-            
-            /**
-        	person1.setLastName(personMap.get("lastName"));
-        	person1.setPhone(personMap.get("phone"));
-        	person1.setEmail(personMap.get("email"));
         	
-        	address1.setAddress(personMap.get("address"));
-      	address1.setZip(personMap.get("zip"));
-      	address1.setCity(personMap.get("city"));
+        	/**
+        	
+        	//person1.setFirstName(persons.get(i).thisFirstName);
+        	person1.setLastName(persons.get(i).toString());
+        	person1.setPhone(persons.get(i).toString());
+        	person1.setEmail(persons.get(i).toString());
+        	
+        	address1.setAddress(persons.get(i).toString());
+      	    address1.setZip(persons.get(i).toString());
+      	    address1.setCity(persons.get(i).toString());
       	
-          person1.setAddress(address1);
-          **/
+            person1.setAddress(address1);
+            //System.out.println(person1);
+             * 
+             */
+            
+      	   }
+      	  
+          System.out.println(pers);
 
-        
+         
 
-          
+      	   }
 
-        
+         }
+
+
              
-        }
+        
 
 
 
-	}      
+	     
                  
        
 	
 
 
 
-}
+
