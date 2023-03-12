@@ -26,82 +26,89 @@ import com.safetynet.alertsapp.model.Persons;
 
 @Component
 public class ReadDataJson {
-	
-	//create ObjectMapper instance
-    static ObjectMapper objectMapper = new ObjectMapper();
-    
-    public void readDataFromFile () throws StreamReadException, DatabindException, IOException {
-       List<Map<String, Object>> resultMap  =  (List<Map<String, Object>>) objectMapper.readValue(new ClassPathResource("data.json").getFile() , List.class);
-        
 
-        System.out.println(resultMap);
-        
-    }    
-    
+	// create ObjectMapper instance
+	static ObjectMapper objectMapper = new ObjectMapper();
+
+	public void readDataFromFile() throws StreamReadException, DatabindException, IOException {
+		List<Map<String, Object>> resultMap = (List<Map<String, Object>>) objectMapper
+				.readValue(new ClassPathResource("data.json").getFile(), List.class);
+
+		System.out.println(resultMap);
+
+	}
+
 	public ReadDataJson() throws StreamReadException, DatabindException, IOException {
-		
-		
+
 		readDataFromFile();
 
 	}
+
+	public static void readPersonsFromFile() throws StreamReadException, DatabindException, IOException {
+		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
+				new TypeReference<Map<String, List>>() {
+				});
+
+		List<Object> pers = (List<Object>) resultMap.get("persons");
+
+		Map<String, String> personsMap = new HashMap<>();
+
+		for (int i = 0; i <= pers.size() - 1; i++) {
+
+			personsMap = (Map<String, String>) pers.get(i);
+
+			System.out.println(personsMap);
+
+			Persons person1 = new Persons();
+			Address address1 = new Address();
+
+			person1.setFirstName(personsMap.get("firstName"));
+			person1.setLastName(personsMap.get("lastName"));
+			person1.setPhone(personsMap.get("phone"));
+			person1.setEmail(personsMap.get("email"));
+			address1.setAddress(personsMap.get("address"));
+			address1.setZip(personsMap.get("zip"));
+			address1.setCity(personsMap.get("city"));
+			person1.setAddress(address1);
+			System.out.println(person1);
+
+		}
+
+		System.out.println(pers);
+
+	}
 	
-	public static void readPersonsFromFile () throws StreamReadException, DatabindException, IOException {
-        objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		Map<String, ?> resultMap  = objectMapper.readValue(new ClassPathResource("data.json").getFile() , new TypeReference<Map<String, List>>() {});
+	public static void readFireStationsFromFile() throws StreamReadException, DatabindException, IOException {
+		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
+				new TypeReference<Map<String, List>>() {
+				});
 
-        List<Object>pers = (List<Object>) resultMap.get("persons");
-        
+		List<Object> stations = (List<Object>) resultMap.get("firestations");
 
-        Map <String, String> personsMap = new HashMap<>();
-   
-          
-      	  for (int i=0; i<=pers.size()-1; i++) {
-      	   
-      	    personsMap = (Map<String, String>) pers.get(i);
-      	    
-            System.out.println(personsMap);
-            
-      		        	    		 
-      	    	 
-        	Persons person1 = new Persons();
-        	Address address1 = new Address();
+		Map<String, String> stationsMap = new HashMap<>();
+
+		for (int i = 0; i <= stations.size() - 1; i++) {
+
+			stationsMap = (Map<String, String>) stations.get(i);
+
+			System.out.println(stationsMap);
+
+			Address address1 = new Address();
+        	Firestations fireStation1 = new Firestations(); 
         	
-        	
-        	person1.setFirstName(personsMap.get("firstName"));
-        	person1.setLastName(personsMap.get("lastName"));
-        	person1.setPhone(personsMap.get("phone"));
-        	person1.setEmail(personsMap.get("email"));
-        	
-        	address1.setAddress(personsMap.get("address"));
-      	    address1.setZip(personsMap.get("zip"));
-      	    address1.setCity(personsMap.get("city"));
-      	
-            person1.setAddress(address1);
-            System.out.println(person1);
+        	fireStation1.setStation(stationsMap.get("station"));
+          	address1.setAddress(stationsMap.get("address"));
+          	fireStation1.setAddress(address1);        	
+			System.out.println(fireStation1);
 
-      	    	 }
-      	  
-      	  
-          System.out.println(pers);
+		}
 
-         
+		System.out.println(stations);
 
-      	   }
+	}
 
-         }
-
-
-
-             
-        
-
-
-
-	     
-                 
-       
 	
 
-
-
-
+}
