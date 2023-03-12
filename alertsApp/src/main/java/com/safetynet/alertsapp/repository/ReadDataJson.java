@@ -54,36 +54,36 @@ public class ReadDataJson {
 
         Map <String, String> personsMap = new HashMap<>();
    
-	
-       
-      
+          
       	  for (int i=0; i<=pers.size()-1; i++) {
       	   
       	    personsMap = (Map<String, String>) pers.get(i);
       	    
             System.out.println(personsMap);
             
-     	   
+      	  }
+      	        	    	
+      	  for (Map.Entry mapentry : personsMap.entrySet()) {
+      		        	    		 
+      	    	 
         	Persons person1 = new Persons();
         	Address address1 = new Address();
         	
-        	/**
         	
-        	//person1.setFirstName(persons.get(i).thisFirstName);
-        	person1.setLastName(persons.get(i).toString());
-        	person1.setPhone(persons.get(i).toString());
-        	person1.setEmail(persons.get(i).toString());
+        	person1.setFirstName(personsMap.get("firstName"));
+        	person1.setLastName(personsMap.get("lastName"));
+        	person1.setPhone(personsMap.get("phone"));
+        	person1.setEmail(personsMap.get("email"));
         	
-        	address1.setAddress(persons.get(i).toString());
-      	    address1.setZip(persons.get(i).toString());
-      	    address1.setCity(persons.get(i).toString());
+        	address1.setAddress(personsMap.get("address"));
+      	    address1.setZip(personsMap.get("zip"));
+      	    address1.setCity(personsMap.get("city"));
       	
             person1.setAddress(address1);
-            //System.out.println(person1);
-             * 
-             */
-            
-      	   }
+            System.out.println(person1);
+
+      	    	 }
+      	  
       	  
           System.out.println(pers);
 
@@ -92,6 +92,7 @@ public class ReadDataJson {
       	   }
 
          }
+
 
 
              
