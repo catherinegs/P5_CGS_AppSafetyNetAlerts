@@ -61,9 +61,6 @@ public class ReadDataJson {
       	    
             System.out.println(personsMap);
             
-      	  }
-      	        	    	
-      	  for (Map.Entry mapentry : personsMap.entrySet()) {
       		        	    		 
       	    	 
         	Persons person1 = new Persons();
