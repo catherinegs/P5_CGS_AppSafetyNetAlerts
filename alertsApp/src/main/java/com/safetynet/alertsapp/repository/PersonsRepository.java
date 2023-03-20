@@ -11,6 +11,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -40,8 +41,15 @@ public class PersonsRepository {
 	
 	//create ObjectMapper instance
     ObjectMapper objectMapper = new ObjectMapper();
+    
+    //create new object Persons
+    
+    Persons person = new Persons();
+    
 
-	public ArrayList<Persons> persons = new ArrayList<>();
+	public List<Persons> persons = new ArrayList<>();
+	
+    
 	
 	public PersonsRepository() throws StreamReadException, DatabindException, IOException {
 				
@@ -49,21 +57,27 @@ public class PersonsRepository {
 	}
 	
 
-	public ArrayList<Persons> getAllPersons() {
- 		
+	public List<Persons> getAllPersons() {
+        	
+
         return persons;
+        
     }
-	
+	/**
 	public Persons findByBirthdate(String birthdate) {
 		
+		
+	
         for (Persons person : persons) {
-            if (person.getBirthdate() == (birthdate)) {
+            if (Objects.equals(person.getBirthdate(), (birthdate))) {
                 return person;
             }
         }
 		return null;
+		
+		
 	}
-
+**/
 
 	public void createPersons(Persons p) throws StreamWriteException, DatabindException, IOException {
 	

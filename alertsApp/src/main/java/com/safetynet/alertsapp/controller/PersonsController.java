@@ -31,12 +31,6 @@ public class PersonsController {
 	}
 	
 	
-	@GetMapping("/Persons")
-	public List<Persons>  getPersons()  {
-		
-		return service.getPersons();
-	}
-	
 
 
 	

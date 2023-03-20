@@ -16,20 +16,10 @@ public class PersonsService {
 	    @Autowired
 	    private PersonsRepository personRepository;
 	    
-
-	   public List<Persons> getPerson(String birthdate) {
-	        return (List<Persons>) personRepository.findByBirthdate(birthdate);
-	    }
-
 	    public Persons savePersons(Persons person) {
 	    	Persons savedPerson = personRepository.save(person);
 	        return savedPerson;
 	    }
-
-	    public List<Persons> getPersons() {
-	        return personRepository.getAllPersons();
-	    }
-	    
 
 	}   
 

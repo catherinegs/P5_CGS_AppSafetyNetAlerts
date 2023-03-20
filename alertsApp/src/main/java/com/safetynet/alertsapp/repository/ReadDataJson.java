@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
@@ -29,6 +30,8 @@ public class ReadDataJson {
 
 	// create ObjectMapper instance
 	static ObjectMapper objectMapper = new ObjectMapper();
+	
+	private static Persons person1;
 
 	public void readDataFromFile() throws StreamReadException, DatabindException, IOException {
 		List<Map<String, Object>> resultMap = (List<Map<String, Object>>) objectMapper
@@ -52,32 +55,73 @@ public class ReadDataJson {
 
 		List<Object> pers = (List<Object>) resultMap.get("persons");
 
+
 		Map<String, String> personsMap = new HashMap<>();
+		
+		
+		person1 = new Persons();
+		Address address1 = new Address();
 
 		for (int i = 0; i <= pers.size() - 1; i++) {
 
 			personsMap = (Map<String, String>) pers.get(i);
-
 			System.out.println(personsMap);
 
-			Persons person1 = new Persons();
-			Address address1 = new Address();
 
 			person1.setFirstName(personsMap.get("firstName"));
 			person1.setLastName(personsMap.get("lastName"));
 			person1.setPhone(personsMap.get("phone"));
-			person1.setEmail(personsMap.get("email"));
+			person1.setEmail(personsMap.get("email"));	
 			address1.setAddress(personsMap.get("address"));
 			address1.setZip(personsMap.get("zip"));
 			address1.setCity(personsMap.get("city"));
 			person1.setAddress(address1);
-			System.out.println(person1);
 
+			System.out.println(person1);
 		}
 
 		System.out.println(pers);
 
+
 	}
+	
+	public static void readMedicalRecordsFromFile() throws StreamReadException, DatabindException, IOException {
+		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
+				new TypeReference<Map<String, List>>() {
+				});
+		List<Object> medRec = (List<Object>) resultMap.get("medicalrecords");
+		
+		Map<String, String> medRecMap = new HashMap<>();
+		
+		MedicalRecords medReco = new MedicalRecords();
+
+		
+	for (int j = 0; j <= medRec.size() - 1; j++) {
+		medRecMap = (Map<String, String>) medRec.get(j);
+		
+		List <Object> medications= new ArrayList();
+		medications.add(medRecMap.get("medications"));
+		
+		
+
+		//if (Objects.equals(person1.getLastName(), medRecMap.get("lastName")) && Objects.equals(person1.getFirstName(), medRecMap.get("firstName"))) {
+
+		medReco.setBirthdate(medRecMap.get("birthdate"));
+
+
+		
+	}
+	
+	System.out.println(medRec);
+
+
+		
+		
+	}
+
+	
+	
 	
 	public static void readFireStationsFromFile() throws StreamReadException, DatabindException, IOException {
 		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
