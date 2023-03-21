@@ -58,6 +58,10 @@ public class PersonsRepository {
 	
 
 	public List<Persons> getAllPersons() {
+		
+		for(Persons pers : persons){
+			persons.add(pers);
+		}
         	
 
         return persons;

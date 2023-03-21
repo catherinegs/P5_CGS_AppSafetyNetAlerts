@@ -47,6 +47,7 @@ public class ReadDataJson {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void readPersonsFromFile() throws StreamReadException, DatabindException, IOException {
 		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
@@ -54,6 +55,8 @@ public class ReadDataJson {
 				});
 
 		List<Object> pers = (List<Object>) resultMap.get("persons");
+		
+		List<Persons> persons = new ArrayList<>();
 
 
 		Map<String, String> personsMap = new HashMap<>();
@@ -78,9 +81,18 @@ public class ReadDataJson {
 			person1.setAddress(address1);
 
 			System.out.println(person1);
-		}
+			persons.add(person1);
 
-		System.out.println(pers);
+		}
+		
+
+
+		
+
+
+		System.out.println(persons);
+		
+		
 
 
 	}
@@ -132,6 +144,9 @@ public class ReadDataJson {
 		List<Object> stations = (List<Object>) resultMap.get("firestations");
 
 		Map<String, String> stationsMap = new HashMap<>();
+		Address address1 = new Address();
+    	Firestations fireStation1 = new Firestations(); 
+
 
 		for (int i = 0; i <= stations.size() - 1; i++) {
 
@@ -139,17 +154,23 @@ public class ReadDataJson {
 
 			System.out.println(stationsMap);
 
-			Address address1 = new Address();
-        	Firestations fireStation1 = new Firestations(); 
         	
         	fireStation1.setStation(stationsMap.get("station"));
           	address1.setAddress(stationsMap.get("address"));
           	fireStation1.setAddress(address1);        	
 			System.out.println(fireStation1);
+		
 
 		}
+		
+		List<Firestations> firestat = new ArrayList<>();
+		
+		firestat.add(fireStation1);
 
-		System.out.println(stations);
+
+		System.out.println(firestat);
+		
+		
 
 	}
 
