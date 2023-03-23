@@ -23,7 +23,9 @@ public class Persons {
 	private String phone;
     private Address address;
     private MedicalRecords medicalRecords;
-    
+    public static int numberOfPersons=0;
+
+
     		
 
 }

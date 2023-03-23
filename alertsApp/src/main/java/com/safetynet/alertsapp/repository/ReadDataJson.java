@@ -32,6 +32,7 @@ public class ReadDataJson {
 	static ObjectMapper objectMapper = new ObjectMapper();
 	
 	private static Persons person1;
+	
 
 	public void readDataFromFile() throws StreamReadException, DatabindException, IOException {
 		List<Map<String, Object>> resultMap = (List<Map<String, Object>>) objectMapper
@@ -55,20 +56,20 @@ public class ReadDataJson {
 				});
 
 		List<Object> pers = (List<Object>) resultMap.get("persons");
-		
-		List<Persons> persons = new ArrayList<>();
-
 
 		Map<String, String> personsMap = new HashMap<>();
 		
+		List<Persons> person1List = new ArrayList<>();
+
 		
-		person1 = new Persons();
-		Address address1 = new Address();
+
 
 		for (int i = 0; i <= pers.size() - 1; i++) {
 
 			personsMap = (Map<String, String>) pers.get(i);
 			System.out.println(personsMap);
+			person1 = new Persons();
+			Address address1 = new Address();
 
 
 			person1.setFirstName(personsMap.get("firstName"));
@@ -81,21 +82,22 @@ public class ReadDataJson {
 			person1.setAddress(address1);
 
 			System.out.println(person1);
-			persons.add(person1);
+			person1List.add(person1);
+
+
 
 		}
 		
 
-
-		
-
-
-		System.out.println(persons);
 		
 		
+		System.out.println ("There are " + Persons.numberOfPersons + " objects in this class");
+		System.out.println(person1List);
+		
+		}
 
 
-	}
+	
 	
 	public static void readMedicalRecordsFromFile() throws StreamReadException, DatabindException, IOException {
 		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
