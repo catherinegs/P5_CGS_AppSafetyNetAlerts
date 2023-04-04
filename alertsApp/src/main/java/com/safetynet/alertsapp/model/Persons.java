@@ -22,10 +22,6 @@ public class Persons {
 	private String email;
 	private String phone;
     private Address address;
-    private MedicalRecords medicalRecords;
-    public static int numberOfPersons=0;
-
-
-    		
+    private MedicalRecords medicalRecords;    		
 
 }

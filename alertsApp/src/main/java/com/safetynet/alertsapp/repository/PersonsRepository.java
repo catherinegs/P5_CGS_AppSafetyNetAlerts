@@ -23,6 +23,7 @@ import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.type.MapType;
@@ -30,68 +31,45 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.safetynet.alertsapp.model.Address;
 import com.safetynet.alertsapp.model.MedicalRecords;
 import com.safetynet.alertsapp.model.Persons;
+import com.safetynet.alertsapp.model.Dtos.ReadDataJson;
+import com.safetynet.alertsapp.model.Dtos.ReadPersonsFromJson;
 import com.safetynet.alertsapp.service.PersonsService;
 
 @Repository
 public class PersonsRepository {
 	
 	@Autowired
-	private ReadDataJson readDataJson;
-
+	private ReadPersonsFromJson readPersons;
 	
 	//create ObjectMapper instance
-    ObjectMapper objectMapper = new ObjectMapper();
-    
-    //create new object Persons
-    
-    Persons person = new Persons();
+    private static ObjectMapper objectMapper = new ObjectMapper();
+			
+	private static List<Persons> personList = new ArrayList<Persons>();
+	
+	
     
 
-	public List<Persons> persons = new ArrayList<>();
-	
-    
-	
-	public PersonsRepository() throws StreamReadException, DatabindException, IOException {
-				
-		ReadDataJson.readPersonsFromFile();
-	}
-	
 
-	public List<Persons> getAllPersons() {
+	public List<Persons> getAllPersons() throws StreamReadException, DatabindException, IOException {
 		
-		for(Persons pers : persons){
-			persons.add(pers);
-		}
-        	
-
-        return persons;
-        
+	 
+        return readPersons.personList;      
     }
-	/**
-	public Persons findByBirthdate(String birthdate) {
-		
-		
 	
-        for (Persons person : persons) {
-            if (Objects.equals(person.getBirthdate(), (birthdate))) {
-                return person;
-            }
-        }
+
+	public Persons getPersonByName(String firtsName, String lastName) {
+
 		return null;
 		
 		
 	}
-**/
+
 
 	public void createPersons(Persons p) throws StreamWriteException, DatabindException, IOException {
 	
     //create a Person object
     Persons person = new Persons();
-    person.setFirstName("Maria");
-    person.setLastName("Kovosi");
-    person.setEmail("maria@example.com");
-    person.setPhone("+12 785 4895 321");
-    @SuppressWarnings("deprecation")
+
 
     Address address = new Address();
     address.setAddress("Karchstr.");
@@ -123,7 +101,7 @@ public class PersonsRepository {
     	person.setLastName(p.getLastName());
     	person.setEmail(p.getEmail());
     	person.setPhone(p.getPhone());
-    	persons.add(person);
+    	//persons.add(person);
         return person;
     }
     
