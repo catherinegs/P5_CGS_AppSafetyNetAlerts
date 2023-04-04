@@ -45,10 +45,7 @@ public class PersonsRepository {
     private static ObjectMapper objectMapper = new ObjectMapper();
 			
 	private static List<Persons> personList = new ArrayList<Persons>();
-	
-	
-    
-
+		    
 
 	public List<Persons> getAllPersons() throws StreamReadException, DatabindException, IOException {
 		

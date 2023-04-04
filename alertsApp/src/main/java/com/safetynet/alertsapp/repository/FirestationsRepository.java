@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.safetynet.alertsapp.model.Address;
 import com.safetynet.alertsapp.model.Firestations;
 import com.safetynet.alertsapp.model.Dtos.ReadDataJson;
+import com.safetynet.alertsapp.model.Dtos.ReadFirestationsFromJson;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,28 +21,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class FirestationsRepository {
 	
 	@Autowired
-	private ReadDataJson readDataJson;
+	private ReadFirestationsFromJson readFirestations;
 
 	
 	//create ObjectMapper instance
     ObjectMapper objectMapper = new ObjectMapper();
     
-	public List<Firestations> fireStations = new ArrayList<>();
+	List<Firestations> firestationsList = new ArrayList<>();
 
-	public FirestationsRepository() throws StreamReadException, DatabindException, IOException {
-		
-		    readDataJson.readFireStationsFromFile();
-
-
-
-			}
-
-	
-	
 
 	public List<Firestations> getAllFirestations() {
 		
-        return fireStations;
+        return readFirestations.firestationsList;
 }
 	
 	

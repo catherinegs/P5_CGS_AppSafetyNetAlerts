@@ -25,10 +25,18 @@ public class ReadMedRecordsFromJson {
     private static ObjectMapper objectMapper = new ObjectMapper();
     
 	public static List<MedicalRecords> medRecList = new ArrayList<MedicalRecords>();
+	
+    // read data from json file
+	public ReadMedRecordsFromJson() throws StreamReadException, DatabindException, IOException {
+
+		readMedRecordsFromFile();
+
+	}
+
 
     
 	@SuppressWarnings("unchecked")
-	public static void readPersonsFromFile() throws StreamReadException, DatabindException, IOException {
+	public static void readMedRecordsFromFile() throws StreamReadException, DatabindException, IOException {
 
 		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
@@ -45,12 +53,13 @@ public class ReadMedRecordsFromJson {
 			MedicalRecords medReco = new MedicalRecords();
 
 			List<String> medicationsList = new ArrayList();
-			medicationsList.add(medRecMap.get("medications"));
+			
+			//medicationsList.add(medRecMap.get("medications"));
 			List<String> allergiesList = new ArrayList();
-			allergiesList.add(medRecMap.get("allergies"));
+			//allergiesList.add(medRecMap.get("allergies"));
 			medReco.setBirthdate(medRecMap.get("birthdate"));
-			medReco.setMedications(medicationsList);
-			medReco.setAllergies(allergiesList);
+			//medReco.setMedications(medicationsList);
+			//medReco.setAllergies(allergiesList);
 
 			medRecList.add(medReco);
 			

@@ -1,5 +1,7 @@
 package com.safetynet.alertsapp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,7 @@ public class FirestationsService {
     private FirestationsRepository repository;
 
 
-    public Iterable<Firestations> getFireStations() {
+    public List<Firestations> getFireStations() {
         return repository.getAllFirestations();
     }
 

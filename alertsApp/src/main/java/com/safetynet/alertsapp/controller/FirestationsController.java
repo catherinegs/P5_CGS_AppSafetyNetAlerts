@@ -1,5 +1,7 @@
 package com.safetynet.alertsapp.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,8 +25,8 @@ public class FirestationsController {
 
 
 
-	@GetMapping("/testfirestaions")
-	public Iterable<Firestations>  getFireStations()  {
+	@GetMapping("/firestations")
+	public List<Firestations>  getFireStations()  {
 		
 		return service.getFireStations();
 	}

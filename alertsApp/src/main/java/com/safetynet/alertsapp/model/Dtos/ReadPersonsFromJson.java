@@ -55,7 +55,9 @@ public class ReadPersonsFromJson {
 			System.out.println(personsMap);
 			Persons person = new Persons();
 			Address address = new Address();
+			MedicalRecords medicalRecords = new MedicalRecords();	
 			
+		
 		    //create new object Persons
 			person.setFirstName(personsMap.get("firstName"));
 			person.setLastName(personsMap.get("lastName"));
@@ -65,6 +67,7 @@ public class ReadPersonsFromJson {
 			address.setZip(personsMap.get("zip"));
 			address.setCity(personsMap.get("city"));
 			person.setAddress(address);
+			person.setMedicalRecords(medicalRecords);
 			System.out.println(person);
 			personList.add(person);
 

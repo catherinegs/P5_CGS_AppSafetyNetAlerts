@@ -31,8 +31,6 @@ public class ReadDataJson {
 	// create ObjectMapper instance
 	static ObjectMapper objectMapper = new ObjectMapper();
 
-	private static Persons person1;
-
 	public void readDataFromFile() throws StreamReadException, DatabindException, IOException {
 		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
@@ -50,72 +48,5 @@ public class ReadDataJson {
 
 	}
 
-	public static void readMedicalRecordsFromFile() throws StreamReadException, DatabindException, IOException {
-		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
-				new TypeReference<Map<String, List>>() {
-				});
-		
-		List<Object> medRec = (List<Object>) resultMap.get("medicalrecords");
-
-		Map<String, String> medRecMap = new HashMap<>();
-		
-		for (int j = 0; j <= medRec.size() - 1; j++) {
-			medRecMap = (Map<String, String>) medRec.get(j);
-			
-			MedicalRecords medReco = new MedicalRecords();
-
-			List<Object> medications = new ArrayList();
-			medications.add(medRecMap.get("medications"));
-			
-			List<MedicalRecords> medRecList = new ArrayList<>();
-
-			medReco.setBirthdate(medRecMap.get("birthdate"));
-			person1.setMedicalRecords(medReco);
-
-			medRecList.add(medReco);
-			
-
-		}
-
-		System.out.println(medRec);
-
-	}
-
-	public static void readFireStationsFromFile() throws StreamReadException, DatabindException, IOException {
-		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
-				new TypeReference<Map<String, List>>() {
-				});
-
-		List<Object> stations = (List<Object>) resultMap.get("firestations");
-
-		Map<String, String> stationsMap = new HashMap<>();
-		
-		List<Firestations> firestationsList = new ArrayList<>();
-
-		for (int i = 0; i <= stations.size() - 1; i++) {
-
-			stationsMap = (Map<String, String>) stations.get(i);
-			Address address1 = new Address();
-			Firestations fireStation1 = new Firestations();
-
-
-			System.out.println(stationsMap);
-
-			fireStation1.setStation(stationsMap.get("station"));
-			address1.setAddress(stationsMap.get("address"));
-			fireStation1.setAddress(address1);
-			System.out.println(fireStation1);
-			
-			firestationsList.add(fireStation1);
-
-
-		}
-
-
-		System.out.println(firestationsList);
-
-	}
 
 }
