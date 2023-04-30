@@ -31,8 +31,8 @@ import com.fasterxml.jackson.databind.type.TypeFactory;
 import com.safetynet.alertsapp.model.Address;
 import com.safetynet.alertsapp.model.MedicalRecords;
 import com.safetynet.alertsapp.model.Persons;
-import com.safetynet.alertsapp.model.Dtos.ReadDataJson;
-import com.safetynet.alertsapp.model.Dtos.ReadPersonsFromJson;
+import com.safetynet.alertsapp.model.Json.ReadDataJson;
+import com.safetynet.alertsapp.model.Json.ReadPersonsFromJson;
 import com.safetynet.alertsapp.service.PersonsService;
 
 @Repository
@@ -43,54 +43,54 @@ public class PersonsRepository {
 	
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
-			
-	private static List<Persons> personList = new ArrayList<Persons>();
-		    
 
 	public List<Persons> getAllPersons() throws StreamReadException, DatabindException, IOException {
 		
 	 
-        return readPersons.personList;      
-    }
-	
+        return readPersons.getPersonList();  
+	}    
 
-	public Persons getPersonByName(String firtsName, String lastName) {
+
+	public Persons getPersonByName(String firstName, String lastName) {
+		
+        for (int i = 0; i < ((List<Persons>) readPersons).size(); i++) {
+            if (((List<Persons>) readPersons).get(i).getFirstName() == (firstName) && ((List<Persons>) readPersons).get(i).getLastName() == (lastName)) {
+                return ((List<Persons>) readPersons).get(i);
+            }
+        }
 
 		return null;
 		
 		
 	}
-
-
-	public void createPersons(Persons p) throws StreamWriteException, DatabindException, IOException {
 	
-    //create a Person object
-    Persons person = new Persons();
+    public String delete(String firstName, String lastName) {
+    	((List<Persons>) readPersons).removeIf(x -> x.getFirstName() == (firstName) && x.getLastName() == (lastName));
+        return null;
+    }
+/**
+    public Persons update(Persons person) {
+        int idx = 0;
+        int id = 0;
+        for (int i = 0; i < ((List<Persons>) readPersons).size(); i++) {
+            if ((((List<Persons>) readPersons).get(i).getId() == (product.getId()))) {
+                id = product.getId();
+                idx = i;
+                break;
+            }
+        }
 
+        Persons product1 = new Persons();
+        product1.setId(id);
+        product1.setName(product.getName());
+        product1.setQuantity(product.getQuantity());
+        product1.setPrice(product.getPrice());
+        list.set(idx, product);
+        return product1;
+    }
 
-    Address address = new Address();
-    address.setAddress("Karchstr.");
-    address.setCity("Hanover");
-    address.setZip("66525");
-    person.setAddress(address);
+**/
 
-    MedicalRecords medRec = new MedicalRecords();    
-    List<String> medications = new ArrayList<>();
-    medications.add("PayPal");
-    medications.add("SOFORT");
-    person.setMedicalRecords(medRec);
-    List<String> allergies = new ArrayList<>();
-    allergies.add("gender");
-    allergies.add("married");
-    allergies.add("income");
-    person.setMedicalRecords(medRec);
-    
-    //configure objectMapper for pretty input
-    objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
-    //write customerObj object to customer2.json file
-    objectMapper.writeValue(new File("../../resources/data2.json"), person);	
-	
-	}
 		  
     public Persons save(Persons p) {
     	Persons person = new Persons();
@@ -98,7 +98,6 @@ public class PersonsRepository {
     	person.setLastName(p.getLastName());
     	person.setEmail(p.getEmail());
     	person.setPhone(p.getPhone());
-    	//persons.add(person);
         return person;
     }
     

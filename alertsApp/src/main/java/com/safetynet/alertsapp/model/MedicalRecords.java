@@ -18,9 +18,12 @@ import lombok.NoArgsConstructor;
 public class MedicalRecords {
 	
 	public String birthdate;
-	private List<String> medications;
-	private List<String> allergies;
 	
+	private List<String> medications;
+	
+	private List<String> allergies;
+
+
 	
 	
 

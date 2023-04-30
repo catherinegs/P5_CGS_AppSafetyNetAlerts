@@ -1,4 +1,4 @@
-package com.safetynet.alertsapp.model.Dtos;
+package com.safetynet.alertsapp.model.Json;
 
 import java.io.IOException;
 import java.util.ArrayList;

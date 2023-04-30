@@ -1,4 +1,4 @@
-package com.safetynet.alertsapp.model.Dtos;
+package com.safetynet.alertsapp.model.Json;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,10 +25,19 @@ public class ReadPersonsFromJson {
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
     
-	public static List<Persons> personList = new ArrayList<Persons>();
+	private List<Persons> personList = new ArrayList<Persons>();
 	
-	
-    // read data from json file
+    public List<Persons> getPersonList() {
+		return personList;
+	}
+
+
+	public void setPersonList(List<Persons> personList) {
+		this.personList = personList;
+	}
+
+
+	// read data from json file
 	public ReadPersonsFromJson() throws StreamReadException, DatabindException, IOException {
 
 		readPersonsFromFile();
@@ -38,7 +47,7 @@ public class ReadPersonsFromJson {
     
     // read persons from json file
 	@SuppressWarnings("unchecked")
-	public static void readPersonsFromFile() throws StreamReadException, DatabindException, IOException {
+	public void readPersonsFromFile() throws StreamReadException, DatabindException, IOException {
 
 		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
@@ -72,10 +81,12 @@ public class ReadPersonsFromJson {
 			personList.add(person);
 
 		}
-
-		System.out.println(personList);
+				
 		
 	}
+
+
+
 
 
 }

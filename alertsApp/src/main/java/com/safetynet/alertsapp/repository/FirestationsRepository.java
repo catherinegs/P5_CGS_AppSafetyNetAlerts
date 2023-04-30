@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.safetynet.alertsapp.model.Address;
 import com.safetynet.alertsapp.model.Firestations;
-import com.safetynet.alertsapp.model.Dtos.ReadDataJson;
-import com.safetynet.alertsapp.model.Dtos.ReadFirestationsFromJson;
+import com.safetynet.alertsapp.model.Json.ReadDataJson;
+import com.safetynet.alertsapp.model.Json.ReadFirestationsFromJson;
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,8 +27,6 @@ public class FirestationsRepository {
 	//create ObjectMapper instance
     ObjectMapper objectMapper = new ObjectMapper();
     
-	List<Firestations> firestationsList = new ArrayList<>();
-
 
 	public List<Firestations> getAllFirestations() {
 		

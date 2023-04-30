@@ -1,4 +1,4 @@
-package com.safetynet.alertsapp.model.Dtos;
+package com.safetynet.alertsapp.model.Json;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,51 +18,56 @@ import com.safetynet.alertsapp.model.Address;
 import com.safetynet.alertsapp.model.Firestations;
 
 @Component
-public class ReadFirestationsFromJson {
-	
+public class ReadAddressFromJson {
+
 	// create ObjectMapper instance
 	static ObjectMapper objectMapper = new ObjectMapper();
+
+	public List<Address> addressList = new ArrayList<>();
 	
-	public static List<Firestations> firestationsList = new ArrayList<>();
+	
 
+	public List<Address> getAddressList() {
+		return addressList;
+	}
 
-    // read data from json file
-	public ReadFirestationsFromJson() throws StreamReadException, DatabindException, IOException {
+	public void setAddressList(List<Address> addressList) {
+		this.addressList = addressList;
+	}
 
-		readFireStationsFromFile();
+	// read data from json file
+	public ReadAddressFromJson() throws StreamReadException, DatabindException, IOException {
+
+		readAddressFromFile();
 
 	}
 
-	public static void readFireStationsFromFile() throws StreamReadException, DatabindException, IOException {
+	public void readAddressFromFile() throws StreamReadException, DatabindException, IOException {
 		objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
 				new TypeReference<Map<String, List>>() {
 				});
 
-		List<Object> stations = (List<Object>) resultMap.get("firestations");
+		List<Object> addresses = (List<Object>) resultMap.get("persons");
 
-		Map<String, String> stationsMap = new HashMap<>();
-		
+		Map<String, String> addressMap = new HashMap<>();
 
-		for (int i = 0; i <= stations.size() - 1; i++) {
+		for (int i = 0; i <= addresses.size() - 1; i++) {
 
-			stationsMap = (Map<String, String>) stations.get(i);
+			addressMap = (Map<String, String>) addresses.get(i);
 			Address address = new Address();
-			Firestations fireStation = new Firestations();
-			System.out.println(stationsMap);
 
-			fireStation.setStation(stationsMap.get("station"));
-			address.setAddress(stationsMap.get("address"));
-			fireStation.setAddress(address);
-			System.out.println(fireStation);
-			
-			firestationsList.add(fireStation);
+			address.setAddress(addressMap.get("address"));
+			address.setCity(addressMap.get("city"));
+			address.setZip(addressMap.get("zip"));
+			System.out.println(address);
+
+			addressList.add(address);
 
 		}
 
-		System.out.println(firestationsList);
+		System.out.println(addressList);
 
 	}
-	
 
 }

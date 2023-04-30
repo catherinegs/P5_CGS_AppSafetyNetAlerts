@@ -9,8 +9,8 @@ import org.springframework.stereotype.Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.safetynet.alertsapp.model.MedicalRecords;
 import com.safetynet.alertsapp.model.Persons;
-import com.safetynet.alertsapp.model.Dtos.ReadMedRecordsFromJson;
-import com.safetynet.alertsapp.model.Dtos.ReadPersonsFromJson;
+import com.safetynet.alertsapp.model.Json.ReadMedRecordsFromJson;
+import com.safetynet.alertsapp.model.Json.ReadPersonsFromJson;
 
 @Repository
 public class MedicalRecordsRepository {
