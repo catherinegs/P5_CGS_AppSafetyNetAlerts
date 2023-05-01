@@ -33,18 +33,25 @@ import com.safetynet.alertsapp.model.Persons;
 
 @Component
 public class ReadMedRecordsFromJson {
-	
-	
-	@JsonDeserialize(using = CustomStringDeserializer.class)
-	List<String> allergiesList = new ArrayList();
-
+		
 
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
     
 	public static  List<MedicalRecords> medRecList = new ArrayList<MedicalRecords>();
 	
-    // read data from json file
+	
+    public static List<MedicalRecords> getMedRecList() {
+		return medRecList;
+	}
+
+
+	public static void setMedRecList(List<MedicalRecords> medRecList) {
+		ReadMedRecordsFromJson.medRecList = medRecList;
+	}
+
+
+	// read data from json file
 	public ReadMedRecordsFromJson() throws StreamReadException, DatabindException, IOException {
 
 		readMedRecordsFromFile();
@@ -66,7 +73,8 @@ public class ReadMedRecordsFromJson {
 		List<String> medis = new ArrayList<String> ();
 		List<String> allergies= new ArrayList<String>();
 		
-		MedicalRecords medicalRecords = new MedicalRecords();	
+		MedicalRecords medicalRecords = new MedicalRecords();
+		Persons person = new Persons();
 
 
         // create list of objects MedicalRecords with birthdate  
@@ -76,42 +84,48 @@ public class ReadMedRecordsFromJson {
 			System.out.println(medicoMapp);
 			
 			medicalRecords.setBirthdate(medicoMapp.get("birthdate"));
-			medRecList.add(medicalRecords);
-
-		
+			person.setFirstName(medicoMapp.get("firstName"));
+			person.setLastName(medicoMapp.get("lastName"));
+			medicalRecords.setPerson(person);
 
 			
-			medis = ((Map<String,List>) medRec.get(i)).get("medications");
+			System.out.println(medicalRecords);
 
+			medRecList.add(medicalRecords);
+
+						
+			medis = ((Map<String,List>) medRec.get(i)).get("medications");
+			
+			allergies = ((Map<String,List>) medRec.get(i)).get("allergies");
+
+			
+			for (int j = 0; j <= medis.size() - 1; j++) {
+				
 			medicalRecords.setMedications(medis);
 			medRecList.add(medicalRecords);
 
+			
+			}
+			
+			for (int k = 0; k <= allergies.size() - 1; k++) {
 		
-
-
-			allergies = ((Map<String,List>) medRec.get(i)).get("allergies");
 			
 			medicalRecords.setAllergies(allergies);
-
-			System.out.println(medis);
 			medRecList.add(medicalRecords);
 
 
-		
-		
-		}
-		
 			
+			}
 					
+			System.out.println(medis);
+			
+			System.out.println(allergies);
+			
+		}
+							
 			System.out.println(medicalRecords);
-
-			
-
-			
-		
+				
        }
-	
-
 
 	}
 

@@ -25,6 +25,8 @@ public class ReadPersonsFromJson {
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
     
+	private ReadMedRecordsFromJson readMed;
+   
 	private List<Persons> personList = new ArrayList<Persons>();
 	
     public List<Persons> getPersonList() {
@@ -76,6 +78,11 @@ public class ReadPersonsFromJson {
 			address.setZip(personsMap.get("zip"));
 			address.setCity(personsMap.get("city"));
 			person.setAddress(address);
+			
+			medicalRecords.getBirthdate();
+			medicalRecords.getMedications();
+			medicalRecords.getAllergies();
+			
 			person.setMedicalRecords(medicalRecords);
 			System.out.println(person);
 			personList.add(person);

@@ -32,6 +32,7 @@ import com.safetynet.alertsapp.model.Address;
 import com.safetynet.alertsapp.model.MedicalRecords;
 import com.safetynet.alertsapp.model.Persons;
 import com.safetynet.alertsapp.model.Json.ReadDataJson;
+import com.safetynet.alertsapp.model.Json.ReadMedRecordsFromJson;
 import com.safetynet.alertsapp.model.Json.ReadPersonsFromJson;
 import com.safetynet.alertsapp.service.PersonsService;
 
@@ -41,16 +42,20 @@ public class PersonsRepository {
 	@Autowired
 	private ReadPersonsFromJson readPersons;
 	
+	private ReadMedRecordsFromJson readMed;
+	
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
 
 	public List<Persons> getAllPersons() throws StreamReadException, DatabindException, IOException {
-		
+
 	 
-        return readPersons.getPersonList();  
+        return readPersons.getPersonList(); 
+        
 	}    
 
 
+	@SuppressWarnings("unchecked")
 	public Persons getPersonByName(String firstName, String lastName) {
 		
         for (int i = 0; i < ((List<Persons>) readPersons).size(); i++) {
@@ -64,10 +69,14 @@ public class PersonsRepository {
 		
 	}
 	
-    public String delete(String firstName, String lastName) {
+    @SuppressWarnings("unchecked")
+	public void deletePerson(String firstName, String lastName) {
     	((List<Persons>) readPersons).removeIf(x -> x.getFirstName() == (firstName) && x.getLastName() == (lastName));
-        return null;
     }
+    
+    
+
+
 /**
     public Persons update(Persons person) {
         int idx = 0;
@@ -112,7 +121,6 @@ public class PersonsRepository {
     public MedicalRecords save(MedicalRecords medrec) {
     	
         MedicalRecords medRec = new MedicalRecords();  
-        List<String> medications = new ArrayList<>();
    
         return medRec;
     	

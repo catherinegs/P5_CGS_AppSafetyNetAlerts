@@ -20,9 +20,7 @@ public class MedicalRecordsRepository {
 	
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
-			
-	private static List<MedicalRecords> medRecList = new ArrayList<MedicalRecords>();
-	
+				
 	public List<MedicalRecords> getAllMedicalRecords() {
 	
         return readMedicalRecords.medRecList;      

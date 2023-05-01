@@ -22,6 +22,8 @@ public class MedicalRecords {
 	private List<String> medications;
 	
 	private List<String> allergies;
+	
+	private Persons person;
 
 
 	
