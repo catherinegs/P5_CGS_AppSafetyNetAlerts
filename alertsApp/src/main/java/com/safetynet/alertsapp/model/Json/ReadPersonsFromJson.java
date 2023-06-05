@@ -46,16 +46,6 @@ public class ReadPersonsFromJson {
 		this.personList = personList;
 	}
 		
-
-
-   /***
-	// read data from json file
-	public ReadPersonsFromJson() throws StreamReadException, DatabindException, IOException {
-
-		readPersonsFromFile();
-
-	}
-**/
     
     // read persons from json file
 	@PostConstruct
@@ -79,8 +69,6 @@ public class ReadPersonsFromJson {
 			
 			Persons person = new Persons();
 			Address address = new Address();
-
-
 		
 		    //create new object Persons
 			person.setFirstName(personsMap.get("firstName"));
@@ -91,8 +79,7 @@ public class ReadPersonsFromJson {
 			address.setZip(personsMap.get("zip"));
 			address.setCity(personsMap.get("city"));
 			person.setAddress(address);
-						
-			
+									
 			System.out.println(person);
 			personList.add(person);
 
