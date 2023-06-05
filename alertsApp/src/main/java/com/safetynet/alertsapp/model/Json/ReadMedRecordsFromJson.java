@@ -37,37 +37,20 @@ import com.safetynet.alertsapp.model.Persons;
 @Component
 @Order(1)
 public class ReadMedRecordsFromJson {
-		
 
-	//create ObjectMapper instance
-    private static ObjectMapper objectMapper = new ObjectMapper();
-    
-	public static  List<MedicalRecords> medRecList = new ArrayList<MedicalRecords>();
-	
-	MedicalRecords medicalRecords = new MedicalRecords();
-	
-	public static int count;
+	// create ObjectMapper instance
+	private ObjectMapper objectMapper = new ObjectMapper();
 
+	public static List<MedicalRecords> medRecList = new ArrayList<MedicalRecords>();
 
-	
-	
-    public static List<MedicalRecords> getMedRecList() {
+	public static List<MedicalRecords> getMedRecList() {
 		return medRecList;
 	}
-
 
 	public static void setMedRecList(List<MedicalRecords> medRecList) {
 		ReadMedRecordsFromJson.medRecList = medRecList;
 	}
 
-/**
-	// read data from json file
-	public ReadMedRecordsFromJson() throws StreamReadException, DatabindException, IOException {
-
-		readMedRecordsFromFile();
-
-	}
-**/
 	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void readMedRecordsFromFile() throws StreamReadException, DatabindException, IOException {
@@ -76,111 +59,45 @@ public class ReadMedRecordsFromJson {
 		Map<String, ?> resultMap = objectMapper.readValue(new ClassPathResource("data.json").getFile(),
 				new TypeReference<Map<String, List>>() {
 				});
-		
-		List<Object> medRec = (List<Object>) resultMap.get("medicalrecords");
+
+		List<Object> medicalRec = (List<Object>) resultMap.get("medicalrecords");
 		Map<String, String> medicoMapp = new HashMap<>();
 
-		List<String> medis = new ArrayList<String> ();
-		List<String> allergies= new ArrayList<String>();
-		
-		Persons person = new Persons();
+		// create list of objects MedicalRecords with birthdate
+		for (int i = 0; i <= medicalRec.size() - 1; i++) {
 
-
-        // create list of objects MedicalRecords with birthdate  
-		for (int i = 0; i <= medRec.size() - 1; i++) {
-			
-			medicoMapp = (Map<String, String>) medRec.get(i);
+			medicoMapp = (Map<String, String>) medicalRec.get(i);
 			System.out.println(medicoMapp);
-			
+
+			List<String> medications = new ArrayList<String>();
+			List<String> allergies = new ArrayList<String>();
+
+			MedicalRecords medicalRecords = new MedicalRecords();
+
+			Persons person = new Persons();
+
 			medicalRecords.setBirthdate(medicoMapp.get("birthdate"));
 			person.setFirstName(medicoMapp.get("firstName"));
 			person.setLastName(medicoMapp.get("lastName"));
 			medicalRecords.setPerson(person);
 
-			
 			System.out.println(medicalRecords);
 
-			medRecList.add(medicalRecords);
+			medications = ((Map<String, List>) medicalRec.get(i)).get("medications");
 
-						
-			medis = ((Map<String,List>) medRec.get(i)).get("medications");
-			
-			allergies = ((Map<String,List>) medRec.get(i)).get("allergies");
+			allergies = ((Map<String, List>) medicalRec.get(i)).get("allergies");
 
-			
-			for (int j = 0; j <= medis.size() - 1; j++) {
-				
-			medicalRecords.setMedications(medis);
-			medRecList.add(medicalRecords);
+			medicalRecords.setMedications(medications);
 
-			
-			}
-			
-			for (int k = 0; k <= allergies.size() - 1; k++) {
-		
-			
 			medicalRecords.setAllergies(allergies);
 			medRecList.add(medicalRecords);
 
+			System.out.println(medications);
 
-			
-			}
-					
-			System.out.println(medis);
-			
 			System.out.println(allergies);
-			
-			
-			
-			
+
 		}
-				
-				
-       }
-	
-	
-	/**
-	public  MedicalRecords getMedRecords() {
-		  
-			  
-			  ((IntStream) medicalRecords).forEach(medicalRecord -> System.out.println(medicalRecord));
-			  
-		  
 
-		  
-		  return medicalRecords;
-		  
-		  
-		  
-		  
-	  }
-	 * @param j 
-
-**/
-
-
-	public MedicalRecords get() {
-		
-
-	return medicalRecords;
 	}
 
-	
-	}
-
-
-
-	
-
-
-	
-
-
-
-
-
-
-	
-	
-
-
+}

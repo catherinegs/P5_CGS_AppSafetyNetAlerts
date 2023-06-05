@@ -45,6 +45,8 @@ public class ReadPersonsFromJson {
 	public void setPersonList(List<Persons> personList) {
 		this.personList = personList;
 	}
+		
+
 
    /***
 	// read data from json file
@@ -69,10 +71,7 @@ public class ReadPersonsFromJson {
 
 		Map<String, String> personsMap = new HashMap<>();
 		
-		List<MedicalRecords> medList = readMed.getMedRecList();
-		System.out.println(medList);
 
-	
         // create list of objects Persons 
 		for (int i = 0; i <= pers.size() - 1; i++) {			
 			personsMap = (Map<String, String>) pers.get(i);
@@ -80,6 +79,7 @@ public class ReadPersonsFromJson {
 			
 			Persons person = new Persons();
 			Address address = new Address();
+
 
 		
 		    //create new object Persons
@@ -92,13 +92,7 @@ public class ReadPersonsFromJson {
 			address.setCity(personsMap.get("city"));
 			person.setAddress(address);
 						
-			MedicalRecords medicalRecords = readMed.get();
-						
-			person.setMedicalRecords(medicalRecords);
-		    	
 			
-			
-							
 			System.out.println(person);
 			personList.add(person);
 
@@ -106,6 +100,9 @@ public class ReadPersonsFromJson {
 				
 		
 	}
+	
+
+
 	
 
 

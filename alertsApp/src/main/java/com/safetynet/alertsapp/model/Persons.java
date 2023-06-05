@@ -10,7 +10,6 @@ import com.safetynet.alertsapp.model.Json.ReadMedRecordsFromJson;
 
 
 
-
 public class Persons {
 	
 	private String firstName;
@@ -19,8 +18,6 @@ public class Persons {
 	private String phone;
 	
     private Address address;
-
-	private MedicalRecords medicalRecords;
 
 	public String getFirstName() {
 		return firstName;
@@ -62,23 +59,13 @@ public class Persons {
 		this.address = address;
 	}
 
-	public MedicalRecords getMedicalRecords() {
-		return medicalRecords;
-	}
-
-	public void setMedicalRecords(MedicalRecords medicalRecords) {
-		this.medicalRecords = medicalRecords;
-	}
-
-	public Persons(String firstName, String lastName, String email, String phone, Address address,
-			MedicalRecords medicalRecords) {
-		super();
+	public Persons(String firstName, String lastName, String email, String phone, Address address
+			) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.phone = phone;
 		this.address = address;
-		this.medicalRecords = medicalRecords;
 	}
 
 	public Persons() {
@@ -88,8 +75,6 @@ public class Persons {
 	public Persons toPerson() {
 		return new Persons();
 	}
-
-	
-  
+	  
 
 }

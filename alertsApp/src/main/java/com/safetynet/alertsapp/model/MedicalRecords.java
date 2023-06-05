@@ -12,34 +12,26 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 public class MedicalRecords {
 	
+	private Persons person;
+	
 	private String birthdate;
 	
 	private List<String> medications;
 	
 	private List<String> allergies;
 	
-	private Persons person;
 	
 	public Persons getPerson() {
 		return person;
 	}
 
-
-
 	public void setPerson(Persons person) {
 		this.person = person;
 	}
-
-
-
-	private static int count;
-	
-	
 	
 	public String getBirthdate() {
 		return birthdate;
 	}
-
 
 
 	public void setBirthdate(String birthdate) {
@@ -47,11 +39,9 @@ public class MedicalRecords {
 	}
 
 
-
 	public List<String> getMedications() {
 		return medications;
 	}
-
 
 
 	public void setMedications(List<String> medications) {
@@ -59,11 +49,9 @@ public class MedicalRecords {
 	}
 
 
-
 	public List<String> getAllergies() {
 		return allergies;
 	}
-
 
 
 	public void setAllergies(List<String> allergies) {
@@ -71,44 +59,23 @@ public class MedicalRecords {
 	}
 
 
-
-	public static int getCount() {
-		return count;
-	}
-
-
-
-	public static void setCount(int count) {
-		MedicalRecords.count = count;
-	}
-
-
-
 	public MedicalRecords() {
 		
-		count++;
-		
 
 	}
-
 
 
 	public MedicalRecords(String birthdate, List<String> medications, List<String> allergies, Persons person) {
-		super();
 		this.birthdate = birthdate;
 		this.medications = medications;
 		this.allergies = allergies;
 		this.person = person;
 	}
-	
-	
 
 
-
-	
-	//private Persons person;
-
-
+	public MedicalRecords MedicalRecords() {
+		return MedicalRecords();
+	}
 	
 	
 
