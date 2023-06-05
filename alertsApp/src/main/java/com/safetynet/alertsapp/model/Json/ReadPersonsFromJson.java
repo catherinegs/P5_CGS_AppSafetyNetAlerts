@@ -2,10 +2,15 @@ package com.safetynet.alertsapp.model.Json;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -19,14 +24,17 @@ import com.safetynet.alertsapp.model.MedicalRecords;
 import com.safetynet.alertsapp.model.Persons;
 
 @Component
+@Order(2)
 public class ReadPersonsFromJson {
 	
 	
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
     
-	private ReadMedRecordsFromJson readMed;
-   
+
+	@Autowired
+    private ReadMedRecordsFromJson readMed;
+	   
 	private List<Persons> personList = new ArrayList<Persons>();
 	
     public List<Persons> getPersonList() {
@@ -38,16 +46,17 @@ public class ReadPersonsFromJson {
 		this.personList = personList;
 	}
 
-
+   /***
 	// read data from json file
 	public ReadPersonsFromJson() throws StreamReadException, DatabindException, IOException {
 
 		readPersonsFromFile();
 
 	}
-
+**/
     
     // read persons from json file
+	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void readPersonsFromFile() throws StreamReadException, DatabindException, IOException {
 
@@ -59,15 +68,19 @@ public class ReadPersonsFromJson {
 		List<Object> pers = (List<Object>) resultMap.get("persons");
 
 		Map<String, String> personsMap = new HashMap<>();
-						
+		
+		List<MedicalRecords> medList = readMed.getMedRecList();
+		System.out.println(medList);
+
+	
         // create list of objects Persons 
 		for (int i = 0; i <= pers.size() - 1; i++) {			
 			personsMap = (Map<String, String>) pers.get(i);
 			System.out.println(personsMap);
+			
 			Persons person = new Persons();
 			Address address = new Address();
-			MedicalRecords medicalRecords = new MedicalRecords();	
-			
+
 		
 		    //create new object Persons
 			person.setFirstName(personsMap.get("firstName"));
@@ -78,12 +91,14 @@ public class ReadPersonsFromJson {
 			address.setZip(personsMap.get("zip"));
 			address.setCity(personsMap.get("city"));
 			person.setAddress(address);
-			
-			medicalRecords.getBirthdate();
-			medicalRecords.getMedications();
-			medicalRecords.getAllergies();
-			
+						
+			MedicalRecords medicalRecords = readMed.get();
+						
 			person.setMedicalRecords(medicalRecords);
+		    	
+			
+			
+							
 			System.out.println(person);
 			personList.add(person);
 
@@ -91,6 +106,8 @@ public class ReadPersonsFromJson {
 				
 		
 	}
+	
+
 
 
 

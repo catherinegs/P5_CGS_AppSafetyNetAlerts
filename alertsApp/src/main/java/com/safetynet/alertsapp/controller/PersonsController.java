@@ -5,6 +5,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,10 +35,18 @@ public class PersonsController {
 	}
 	
 	@GetMapping("/Persons")
-	public List<Persons>  getPersons() throws StreamReadException, DatabindException, IOException  {
+	public ResponseEntity<Iterable<Persons>>  getPersons() throws IOException  {
 		
-		return service.getPersons();
+		return  new ResponseEntity<>(service.getPersons(), HttpStatus.OK);
 	}
+	
+	  @PostMapping("/register")
+	  public ResponseEntity<Persons> registerPerson(@RequestBody Persons person) {
+		  Persons createdPerson = service.updatePersons(person.toPerson());
+
+	    return new ResponseEntity<>(createdPerson, HttpStatus.CREATED);
+	  }
+
 
 	
 

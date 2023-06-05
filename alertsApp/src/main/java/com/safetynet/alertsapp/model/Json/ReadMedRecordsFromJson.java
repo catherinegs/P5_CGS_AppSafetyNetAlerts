@@ -16,7 +16,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.annotation.PostConstruct;
+
 import org.json.simple.JSONArray;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
@@ -32,6 +35,7 @@ import com.safetynet.alertsapp.model.MedicalRecords;
 import com.safetynet.alertsapp.model.Persons;
 
 @Component
+@Order(1)
 public class ReadMedRecordsFromJson {
 		
 
@@ -39,6 +43,12 @@ public class ReadMedRecordsFromJson {
     private static ObjectMapper objectMapper = new ObjectMapper();
     
 	public static  List<MedicalRecords> medRecList = new ArrayList<MedicalRecords>();
+	
+	MedicalRecords medicalRecords = new MedicalRecords();
+	
+	public static int count;
+
+
 	
 	
     public static List<MedicalRecords> getMedRecList() {
@@ -50,15 +60,15 @@ public class ReadMedRecordsFromJson {
 		ReadMedRecordsFromJson.medRecList = medRecList;
 	}
 
-
+/**
 	// read data from json file
 	public ReadMedRecordsFromJson() throws StreamReadException, DatabindException, IOException {
 
 		readMedRecordsFromFile();
 
 	}
-
-
+**/
+	@PostConstruct
 	@SuppressWarnings("unchecked")
 	public void readMedRecordsFromFile() throws StreamReadException, DatabindException, IOException {
 
@@ -73,7 +83,6 @@ public class ReadMedRecordsFromJson {
 		List<String> medis = new ArrayList<String> ();
 		List<String> allergies= new ArrayList<String>();
 		
-		MedicalRecords medicalRecords = new MedicalRecords();
 		Persons person = new Persons();
 
 
@@ -121,13 +130,50 @@ public class ReadMedRecordsFromJson {
 			
 			System.out.println(allergies);
 			
+			
+			
+			
 		}
-							
-			System.out.println(medicalRecords);
+				
 				
        }
+	
+	
+	/**
+	public  MedicalRecords getMedRecords() {
+		  
+			  
+			  ((IntStream) medicalRecords).forEach(medicalRecord -> System.out.println(medicalRecord));
+			  
+		  
 
+		  
+		  return medicalRecords;
+		  
+		  
+		  
+		  
+	  }
+	 * @param j 
+
+**/
+
+
+	public MedicalRecords get() {
+		
+
+	return medicalRecords;
 	}
+
+	
+	}
+
+
+
+	
+
+
+	
 
 
 

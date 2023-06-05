@@ -2,6 +2,7 @@ package com.safetynet.alertsapp.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,17 +20,27 @@ public class PersonsService {
 	    @Autowired
 	    private PersonsRepository personRepository;
 	    
-	    public  List<Persons> getPersons() throws StreamReadException, DatabindException, IOException {
+	    public  Iterable<Persons> getPersons() throws StreamReadException, DatabindException, IOException {
 	        return personRepository.getAllPersons();
 	    }
 
 	    
-	    public Persons savePersons(Persons person) {
-	    	Persons savedPerson = personRepository.save(person);
-	        return savedPerson;
+	    public Persons updatePersons(Persons person) {
+	    	
+	        return personRepository.update(person);
 	    }
 	    
-	    
+		public Persons getPersonByName(String firstName, String lastName) {
+			
+			return personRepository.getPersonByName(firstName, lastName);
+		}
+		
+		public String deletePerso(String firstName , String lastName) {
+			
+			personRepository.deletePerson(firstName, lastName);
+			return "person removed" + firstName  +lastName;
+		}
+
 
 	}   
 

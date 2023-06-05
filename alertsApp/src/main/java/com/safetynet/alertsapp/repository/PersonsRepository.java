@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -47,7 +48,7 @@ public class PersonsRepository {
 	//create ObjectMapper instance
     private static ObjectMapper objectMapper = new ObjectMapper();
 
-	public List<Persons> getAllPersons() throws StreamReadException, DatabindException, IOException {
+	public Iterable<Persons> getAllPersons()  {
 
 	 
         return readPersons.getPersonList(); 
@@ -74,34 +75,20 @@ public class PersonsRepository {
     	((List<Persons>) readPersons).removeIf(x -> x.getFirstName() == (firstName) && x.getLastName() == (lastName));
     }
     
-    
-
-
-/**
-    public Persons update(Persons person) {
+  
+		  
+    public Persons update(Persons p) {
+    	String firstName;
         int idx = 0;
-        int id = 0;
         for (int i = 0; i < ((List<Persons>) readPersons).size(); i++) {
-            if ((((List<Persons>) readPersons).get(i).getId() == (product.getId()))) {
-                id = product.getId();
+            if ((((List<Persons>) readPersons).get(i).getFirstName() == (p.getFirstName()))) {
+            	firstName = p.getFirstName();
                 idx = i;
                 break;
             }
         }
 
-        Persons product1 = new Persons();
-        product1.setId(id);
-        product1.setName(product.getName());
-        product1.setQuantity(product.getQuantity());
-        product1.setPrice(product.getPrice());
-        list.set(idx, product);
-        return product1;
-    }
-
-**/
-
-		  
-    public Persons save(Persons p) {
+    	
     	Persons person = new Persons();
     	person.setFirstName(p.getFirstName());
     	person.setLastName(p.getLastName());
